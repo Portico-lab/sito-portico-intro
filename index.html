@@ -64,13 +64,12 @@ body{background:#0f1217;color:var(--bone)}
 (async()=>{
 const $=id=>document.getElementById(id),sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const p=document.querySelector('.hd .p'),w=$('w'),t1=$('t1'),t2=$('t2'),bar=$('bar'),n=document.querySelector('.notify'),glow=$('glow');
-const type=async(el,txt,ms)=>{el.classList.add('typing');for(const ch of txt){el.textContent+=ch;await sleep(ms+Math.random()*ms*.8)}await sleep(500);el.classList.remove('typing')};
+const type=async(el,txt,ms)=>{el.classList.add('typing');for(const ch of txt){el.textContent+=ch;await sleep(ms+Math.random()*ms*.8)}await sleep(500);el.classList.remove('typing')};const erase=async(el,ms)=>{el.classList.add('typing');while(el.textContent.length>0){el.textContent=el.textContent.slice(0,-1);await sleep(ms)}el.classList.remove('typing')};
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 if(reduce){p.style.opacity=1;w.style.clipPath='none';glow.classList.add('on');bar.classList.add('on');t2.textContent='Coming soon';n.classList.add('show');return}
 await sleep(500);
 glow.classList.add('on');
-await type(t1,'Un modo nuovo di grigliare',70);
-await sleep(900);t1.classList.add('out');await sleep(800);t1.textContent='';
+await(async()=>{const frasi=['Ciao, sono Ema, ho 22 anni.','Della vita ho capito ancora poco, ma forse le cose più importanti.','Mi piace fermarmi ogni tanto e guardare.','Le persone corrono, sono distratte, si perdono…','Ma in fondo tutti desiderano, nella loro confusione, di essere guardati e amati per il regalo che sono.','Il mio obiettivo è favorire questo.','Tentare di rendere casa un luogo di incontro, non di isolamento.','Di guardarsi e amarsi così.'];for(const f of frasi){await type(t1,f,60);await sleep(900);await erase(t1,22);await sleep(350);}await type(t1,'La mia proposta è questa… portando in casa tua un modo nuovo di grigliare.',60);await sleep(1400);t1.classList.add('out');await sleep(800);t1.textContent='';})();
 const r=p.getBoundingClientRect(),W=Math.min(innerWidth*.42,210),s=W/r.width;
 const dx=innerWidth/2-W/2-r.left,dy=innerHeight/2-(r.height*s)/2-r.top;
 const big=`translate(${dx}px,${dy}px) scale(${s})`;
